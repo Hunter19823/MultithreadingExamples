@@ -148,4 +148,69 @@ public class ElementarySorting<DATA extends Comparable<DATA>> {
             arr[i] = output[i];
         }
     }
+
+    // Heap sort that sorts an array of DATA[] in ascending order
+    public void heapSort(DATA[] arr) {
+        int n = arr.length;
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            heapify(arr, n, i);
+        }
+        for (int i = n - 1; i >= 0; i--) {
+            swap(arr, 0, i);
+            heapify(arr, i, 0);
+        }
+    }
+
+    private void heapify(DATA[] arr, int n, int i) {
+        int largest = i;
+        int l = 2 * i + 1;
+        int r = 2 * i + 2;
+        if (l < n && arr[l].compareTo(arr[largest]) > 0) {
+            largest = l;
+        }
+        if (r < n && arr[r].compareTo(arr[largest]) > 0) {
+            largest = r;
+        }
+        if (largest != i) {
+            swap(arr, i, largest);
+            heapify(arr, n, largest);
+        }
+    }
+
+    // Merge sort that sorts an array of DATA[] in ascending order
+    public void mergeSort(DATA[] arr) {
+        mergeSort(arr, 0, arr.length - 1);
+    }
+
+    private void mergeSort(DATA[] arr, int low, int high) {
+        if (low < high) {
+            int mid = (low + high) / 2;
+            mergeSort(arr, low, mid);
+            mergeSort(arr, mid + 1, high);
+            merge(arr, low, mid, high);
+        }
+    }
+
+    private void merge(DATA[] arr, int low, int mid, int high) {
+        Comparable<DATA>[] temp = new Comparable[high - low + 1];
+        int i = low;
+        int j = mid + 1;
+        int k = 0;
+        while (i <= mid && j <= high) {
+            if (arr[i].compareTo(arr[j]) < 0) {
+                temp[k++] = arr[i++];
+            } else {
+                temp[k++] = arr[j++];
+            }
+        }
+        while (i <= mid) {
+            temp[k++] = arr[i++];
+        }
+        while (j <= high) {
+            temp[k++] = arr[j++];
+        }
+        for (i = 0; i < temp.length; i++) {
+            arr[low + i] = (DATA) temp[i];
+        }
+    }
 }

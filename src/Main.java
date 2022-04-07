@@ -33,10 +33,14 @@ public class Main {
         quicksortrecursive.setName("Quick Sort Recursive");
         Thread radixsort = new Thread(new BenchmarkAlgorithm<Integer>("Radix Sort", sorting::radixSort, arr));
         radixsort.setName("Radix Sort");
+        Thread mergesort = new Thread(new BenchmarkAlgorithm<Integer>("Merge Sort", sorting::mergeSort, arr));
+        mergesort.setName("Merge Sort");
+        Thread heapsort = new Thread(new BenchmarkAlgorithm<Integer>("Heap Sort", sorting::heapSort, arr));
+        heapsort.setName("Heap Sort");
 
 
 
-        Thread race = new Thread(new ThreadRace(selectionSort,insertionSort,bubbleSort,shellSort, quicksortiterative, quicksortrecursive));
+        Thread race = new Thread(new ThreadRace(selectionSort,insertionSort,bubbleSort,shellSort, quicksortiterative, quicksortrecursive,mergesort,heapsort));
 
         System.out.println("Let's benchmark the performance of some algorithms Java language!");
         System.out.println("The array size is " + size + " elements");
