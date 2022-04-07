@@ -12,9 +12,17 @@ public class BenchmarkAlgorithm<DATA extends Comparable<DATA>> extends SortOneDi
     @Override
     public void run() {
         long startTime = System.currentTimeMillis();
-        algorithm.accept(data);
-        long endTime = System.currentTimeMillis();
-        long duration = endTime - startTime;
-        System.out.println("Thread " + this.name + " finished in " + duration + " ms");
+        long endTime;
+        long duration;
+        try {
+            algorithm.accept(data);
+            endTime = System.currentTimeMillis();
+            duration = endTime - startTime;
+            System.out.println("Thread " + this.name + " finished in " + duration + " ms");
+        } catch (Exception e) {
+            endTime = System.currentTimeMillis();
+            duration = endTime - startTime;
+            System.out.println("Ooooh. Looks like " + name + " is out of the race. It tripped over an " + e.getClass().getSimpleName()+ ". That's gotta hurt. ("+duration+"ms)");
+        }
     }
 }

@@ -2,6 +2,7 @@ import algorithm.ElementarySorting;
 import task.BenchmarkAlgorithm;
 import task.ThreadRace;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class Main {
@@ -37,10 +38,26 @@ public class Main {
         mergesort.setName("Merge Sort");
         Thread heapsort = new Thread(new BenchmarkAlgorithm<Integer>("Heap Sort", sorting::heapSort, arr));
         heapsort.setName("Heap Sort");
+        Thread javaArraySort = new Thread(new BenchmarkAlgorithm<Integer>("Java Sort", Arrays::sort, arr));
+        javaArraySort.setName("Java Array Sort");
+        Thread javaParralelSort = new Thread(new BenchmarkAlgorithm<Integer>("Java Parallel Sort", Arrays::parallelSort, arr));
+        javaParralelSort.setName("Java Parallel Sort");
 
 
 
-        Thread race = new Thread(new ThreadRace(selectionSort,insertionSort,bubbleSort,shellSort, quicksortiterative, quicksortrecursive,mergesort,heapsort));
+        Thread race = new Thread(
+                new ThreadRace(
+                        selectionSort,
+                        insertionSort,
+                        bubbleSort,
+                        shellSort,
+                        quicksortiterative,
+                        quicksortrecursive,
+                        mergesort,
+                        heapsort,
+                        javaArraySort,
+                        javaParralelSort
+                ));
 
         System.out.println("Let's benchmark the performance of some algorithms Java language!");
         System.out.println("The array size is " + size + " elements");
@@ -50,7 +67,7 @@ public class Main {
     private static Integer[] generateRandomInts(int size, Random random) {
         Integer[] arr = new Integer[size];
         for (int i = 0; i < size; i++) {
-            arr[i] = random.nextInt(size);
+            arr[i] = random.nextInt();
         }
         return arr;
     }
