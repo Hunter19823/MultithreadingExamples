@@ -40,9 +40,6 @@ public class Main {
 
         System.out.println("Let's benchmark the performance of some algorithms Java language!");
         System.out.println("The array size is " + size + " elements");
-        int n = -5000;
-        System.out.println("Modulus of negative numbers is " + (n % 997));
-        System.out.println("Modulus of negative numbers is " + ((n & 0x7fffffff) % 997));
         race.start();
     }
 
